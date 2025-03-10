@@ -1,0 +1,81 @@
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.navbar-links a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.signup {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.login {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 10px 20px;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: flex;
+  }
+  .mobile-only, .mobile-menu {
+    display: none;
+  }
+}

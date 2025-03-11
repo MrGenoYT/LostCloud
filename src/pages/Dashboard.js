@@ -1,16 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Dashboard() {
+  const [bots, setBots] = useState([]);
+
+  useEffect(() => {
+    async function fetchBots() {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/bots/list`, { withCredentials: true });
+        setBots(res.data.bots);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchBots();
+  }, []);
+
   return (
-    <div style={{ textAlign: 'center', marginTop: '80px' }}>
+    <div className="dashboard">
       <h1>Dashboard</h1>
-      <p>Welcome to your LostCloud Dashboard!</p>
-      <div style={{ marginTop: '20px' }}>
-        <Link to="/create-bot" className="btn signup">Deploy Bot</Link>
-        <Link to="/forum" className="btn login" style={{ marginLeft: '10px' }}>Forum</Link>
-        <Link to="/help" className="btn" style={{ marginLeft: '10px' }}>Help</Link>
-      </div>
+      {bots.length === 0 ? (
+        <p>No bots created yet.</p>
+      ) : (
+        <ul>
+          {bots.map(bot => (
+            <li key={bot.serverId}>
+              <strong>{bot.botName}</strong> ({bot.type})  
+              <p>Server ID: {bot.serverId}</p>
+              <p>IP: {bot.ip}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

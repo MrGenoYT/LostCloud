@@ -3,37 +3,43 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-// Initialize WebSocket connection to your backend
 const socket = io(process.env.REACT_APP_API_URL);
 
 function Dashboard() {
   const [bots, setBots] = useState([]);
   const [botStatuses, setBotStatuses] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch the list of bots for the logged-in user
-    async function fetchBots() {
+    const fetchBots = async () => {
+      setLoading(true);
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/bots/list`, { withCredentials: true });
         setBots(res.data.bots);
+        setError(null);
       } catch (err) {
         console.error(err);
+        setError('Failed to load bots. Please try again later.');
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+
     fetchBots();
 
-    // Listen for real-time bot status updates
-    socket.on('botStatusUpdate', (statuses) => {
+    const handleBotStatusUpdate = (statuses) => {
       const statusMap = {};
       statuses.forEach(({ serverId, status }) => {
         statusMap[serverId] = status;
       });
       setBotStatuses(statusMap);
-    });
+    };
 
-    // Clean up on unmount
+    socket.on('botStatusUpdate', handleBotStatusUpdate);
+    
     return () => {
-      socket.off('botStatusUpdate');
+      socket.off('botStatusUpdate', handleBotStatusUpdate);
     };
   }, []);
 
@@ -46,9 +52,12 @@ function Dashboard() {
         <Link to="/forum" className="btn login" style={{ marginLeft: '10px' }}>Forum</Link>
         <Link to="/help" className="btn" style={{ marginLeft: '10px' }}>Help</Link>
       </div>
-      {bots.length === 0 ? (
+      {loading && <p>Loading bots...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {!loading && !error && bots.length === 0 && (
         <p style={{ marginTop: '20px' }}>No bots created yet.</p>
-      ) : (
+      )}
+      {!loading && !error && bots.length > 0 && (
         <ul style={{ listStyle: 'none', padding: 0, marginTop: '20px' }}>
           {bots.map(bot => (
             <li key={bot.serverId} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '10px' }}>

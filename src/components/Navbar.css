@@ -1,6 +1,9 @@
+/* Navbar.css */
+
+/* Global Navbar Styles */
 .navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: 10px 20px;
   position: fixed;
   width: 100%;
@@ -14,6 +17,7 @@
   align-items: center;
 }
 
+/* Logo */
 .navbar-logo {
   font-size: 24px;
   font-weight: bold;
@@ -21,61 +25,191 @@
   text-decoration: none;
 }
 
-.navbar-links a {
-  margin-right: 15px;
-  text-decoration: none;
-  color: #333;
-}
-
-.btn {
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.signup {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.login {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-/* Hamburger */
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-}
-
-.bar {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-}
-
-/* Mobile menu */
-.mobile-menu {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: 10px 20px;
-}
-
+/* Desktop Navigation */
 .desktop-only {
   display: none;
 }
 
+.desktop-only a {
+  text-decoration: none;
+  color: #333;
+  margin-right: 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.desktop-only a:hover {
+  color: #007bff;
+}
+
+.desktop-only .btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.desktop-only .signup {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.desktop-only .signup:hover {
+  background-color: #0056b3;
+}
+
+.desktop-only .login {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.desktop-only .login:hover {
+  background-color: #e0e0e0;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+  margin-right: 15px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Mobile Navigation */
+.mobile-only {
+  display: block;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  position: absolute;
+  top: 60px; /* Below the navbar */
+  width: 100%;
+  left: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu a {
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu a:hover {
+  color: #007bff;
+}
+
+.mobile-menu .btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-menu .signup {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.mobile-menu .signup:hover {
+  background-color: #0056b3;
+}
+
+.mobile-menu .login {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.mobile-menu .login:hover {
+  background-color: #e0e0e0;
+}
+
+/* Media Query for Desktop */
 @media (min-width: 768px) {
   .desktop-only {
     display: flex;
+    align-items: center;
   }
-  .mobile-only, .mobile-menu {
+  .mobile-only,
+  .mobile-menu {
     display: none;
   }
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.dark-mode .navbar {
+  background-color: #333;
+}
+
+.dark-mode .navbar-logo {
+  color: #66b2ff;
+}
+
+.dark-mode .desktop-only a,
+.dark-mode .mobile-menu a {
+  color: #ddd;
+}
+
+.dark-mode .desktop-only a:hover,
+.dark-mode .mobile-menu a:hover {
+  color: #fff;
+}
+
+.dark-mode .btn.signup {
+  background-color: #66b2ff;
+  color: #fff;
+}
+
+.dark-mode .btn.signup:hover {
+  background-color: #3385ff;
+}
+
+.dark-mode .btn.login {
+  background-color: #555;
+  color: #fff;
+}
+
+.dark-mode .btn.login:hover {
+  background-color: #444;
+}
+
+.dark-mode .hamburger .bar {
+  background-color: #ddd;
+}
+
+.dark-mode .mobile-menu {
+  background-color: #333;
 }
